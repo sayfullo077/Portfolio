@@ -1,0 +1,37 @@
+<header class="fixed top-0 left-0 right-0 z-40 border-b border-white/[0.06] bg-[#0a0a0a]/80 backdrop-blur-md">
+    <nav class="max-w-6xl mx-auto px-5 sm:px-8 flex items-center justify-between h-16">
+        <a href="{% url 'home' %}" class="flex items-center gap-1 font-mono text-sm font-medium group">
+            <span class="text-emerald-400 group-hover:text-emerald-300 transition-colors">&gt;</span>
+            <span class="text-white">{{ site_owner.full_name|default:"Portfolio" }}</span>
+            <span class="text-emerald-400 animate-pulse">_</span>
+        </a>
+
+        <ul class="hidden md:flex items-center gap-8 text-sm">
+            <li><a href="{% url 'home' %}" class="text-gray-400 hover:text-white transition-colors {% if request.resolver_match.url_name == 'home' %}!text-white{% endif %}">home</a></li>
+            <li><a href="{% url 'about' %}" class="text-gray-400 hover:text-white transition-colors {% if request.resolver_match.url_name == 'about' %}!text-white{% endif %}">about</a></li>
+            <li><a href="{% url 'projects' %}" class="text-gray-400 hover:text-white transition-colors {% if request.resolver_match.url_name == 'projects' %}!text-white{% endif %}">projects</a></li>
+            <li><a href="{% url 'blog' %}" class="text-gray-400 hover:text-white transition-colors {% if request.resolver_match.url_name == 'blog' or request.resolver_match.url_name == 'post_detail' %}!text-white{% endif %}">blog</a></li>
+            <li>
+                <a href="{% url 'contact' %}" class="border border-emerald-500/40 text-emerald-400 hover:bg-emerald-500/10 px-4 py-1.5 rounded-md transition-colors text-xs font-medium tracking-wide">
+                    contact
+                </a>
+            </li>
+        </ul>
+
+        <button id="menu-btn" class="md:hidden text-gray-400 hover:text-white transition-colors p-1" aria-label="Toggle menu">
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+            </svg>
+        </button>
+    </nav>
+
+    <div id="mobile-menu" class="hidden md:hidden border-t border-white/[0.06] bg-[#0a0a0a]/95 backdrop-blur-md">
+        <div class="max-w-6xl mx-auto px-5 py-5 space-y-1 text-sm">
+            <a href="{% url 'home' %}" class="flex items-center gap-3 py-2.5 px-3 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 transition-all">home</a>
+            <a href="{% url 'about' %}" class="flex items-center gap-3 py-2.5 px-3 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 transition-all">about</a>
+            <a href="{% url 'projects' %}" class="flex items-center gap-3 py-2.5 px-3 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 transition-all">projects</a>
+            <a href="{% url 'blog' %}" class="flex items-center gap-3 py-2.5 px-3 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 transition-all">blog</a>
+            <a href="{% url 'contact' %}" class="flex items-center gap-3 py-2.5 px-3 rounded-lg text-emerald-400 hover:bg-emerald-500/10 transition-all">contact</a>
+        </div>
+    </div>
+</header>

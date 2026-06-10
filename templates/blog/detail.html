@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ post.title }} — {{ site_owner.full_name|default:"Portfolio" }}{% endblock %}
+
+{% block content %}
+<article class="blog active" data-page="blog">
+
+  <header>
+    <h2 class="h2 article-title">{{ post.title }}</h2>
+  </header>
+
+  <!-- Meta info -->
+  <div style="display:flex; align-items:center; gap:12px; font-size:12px; color:var(--light-gray); margin-bottom:24px;">
+    {% with post.categories.first as cat %}
+    {% if cat %}
+    <span style="background:var(--border-gradient-onyx); padding:3px 10px; border-radius:4px; color:var(--orange-yellow-crayola);">{{ cat.name }}</span>
+    <span>·</span>
+    {% endif %}
+    {% endwith %}
+    <time datetime="{{ post.created_at|date:'Y-m-d' }}">{{ post.created_at|date:"F j, Y" }}</time>
+  </div>
+
+  <!-- Cover image -->
+  {% if post.image %}
+  <figure style="margin-bottom:28px; border-radius:14px; overflow:hidden;">
+    <img src="{{ post.image.file.url }}" alt="{{ post.title }}" style="width:100%; object-fit:cover; display:block;">
+  </figure>
+  {% endif %}
+
+  <!-- Content -->
+  <div style="font-size:14px; font-weight:300; color:var(--light-gray); line-height:1.9; white-space:pre-wrap;">
+    {{ post.content }}
+  </div>
+
+  <!-- Back link -->
+  <div style="margin-top:40px; padding-top:20px; border-top:1px solid var(--jet);">
+    <a href="{% url 'blog' %}"
+       class="navbar-link"
+       style="display:inline-flex; align-items:center; gap:8px; font-size:13px;">
+      <ion-icon name="arrow-back-outline"></ion-icon>
+      Back to Blog
+    </a>
+  </div>
+
+</article>
+{% endblock %}

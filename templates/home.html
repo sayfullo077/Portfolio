@@ -1,0 +1,155 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}About — {{ site_owner.full_name|default:"Portfolio" }}{% endblock %}
+
+{% block content %}
+<article class="about active" data-page="about">
+
+  <header>
+    <h2 class="h2 article-title">Men haqimda</h2>
+  </header>
+
+  <section class="about-text">
+    {% if site_owner.bio %}
+      <p>{{ site_owner.bio }}</p>
+    {% else %}
+      <p>👋 Salom, Mening ismim Sayfulloh. Men dasturchiman. Asosan vebsaytlar va telegram botlarni yaratishga ixtisoslashganman. Undan tashqari avtomatlashtirish yoki har-xil biznes muammolarga raqamli yechimlarni taklif qilaman. Takliflar va Savollar bo'lsa kontaktlar siz uchun.</p>
+    {% endif %}
+  </section>
+
+  <!--  SERVICES  -->
+  {% if services %}
+  <section class="service">
+
+    <h3 class="h3 service-title">Mavjud hizmatlar</h3>
+
+    <ul class="service-list">
+
+      {% for service in services %}
+      <li class="service-item">
+
+        <div class="service-icon-box">
+          {% if service.icon %}
+            <img src="{{ service.icon.url }}" alt="{{ service.name }} icon" width="40">
+          {% elif service.icon_name %}
+            <ion-icon name="{{ service.icon_name }}" style="font-size:36px; color:var(--orange-yellow-crayola);"></ion-icon>
+          {% else %}
+            <img src="{% static 'images/icon-dev.svg' %}" alt="{{ service.name }} icon" width="40">
+          {% endif %}
+        </div>
+
+        <div class="service-content-box">
+          <h4 class="h4 service-item-title">{{ service.name }}</h4>
+          <p class="service-item-text">{{ service.description }}</p>
+        </div>
+
+      </li>
+      {% endfor %}
+
+    </ul>
+
+  </section>
+  {% endif %}
+
+  <!--  SOCIAL  -->
+  {% with has_social=site_owner.gmail|default:site_owner.github|default:site_owner.linkedin|default:site_owner.telegram|default:site_owner.instagram|default:site_owner.youtube %}
+  {% if has_social %}
+  <section class="service">
+
+    <h3 class="h3 service-title">Men ijtimoiy tarmoqlarda</h3>
+
+    <ul class="service-list">
+
+      {% if site_owner.gmail %}
+      <li class="service-item">
+        <a href="mailto:{{ site_owner.gmail }}" class="social-card-link">
+          <div class="social-icon-wrap">
+            <ion-icon name="mail-outline"></ion-icon>
+          </div>
+          <div class="social-card-info">
+            <p class="social-card-label">EMAIL</p>
+            <span class="social-card-handle">{{ site_owner.gmail }}</span>
+          </div>
+        </a>
+      </li>
+      {% endif %}
+
+      {% if site_owner.github %}
+      <li class="service-item">
+        <a href="{{ site_owner.github }}" target="_blank" rel="noopener" class="social-card-link">
+          <div class="social-icon-wrap">
+            <ion-icon name="logo-github"></ion-icon>
+          </div>
+          <div class="social-card-info">
+            <p class="social-card-label">GITHUB</p>
+            <span class="social-card-handle">@{{ site_owner.github|cut:"https://github.com/"|cut:"https://www.github.com/"|cut:"http://github.com/" }}</span>
+          </div>
+        </a>
+      </li>
+      {% endif %}
+
+      {% if site_owner.linkedin %}
+      <li class="service-item">
+        <a href="{{ site_owner.linkedin }}" target="_blank" rel="noopener" class="social-card-link">
+          <div class="social-icon-wrap">
+            <ion-icon name="logo-linkedin"></ion-icon>
+          </div>
+          <div class="social-card-info">
+            <p class="social-card-label">LINKEDIN</p>
+            <span class="social-card-handle">@{{ site_owner.linkedin|cut:"https://linkedin.com/in/"|cut:"https://www.linkedin.com/in/"|cut:"http://linkedin.com/in/" }}</span>
+          </div>
+        </a>
+      </li>
+      {% endif %}
+
+      {% if site_owner.telegram %}
+      <li class="service-item">
+        <a href="{{ site_owner.telegram }}" target="_blank" rel="noopener" class="social-card-link">
+          <div class="social-icon-wrap">
+            <ion-icon name="paper-plane-outline"></ion-icon>
+          </div>
+          <div class="social-card-info">
+            <p class="social-card-label">TELEGRAM</p>
+            <span class="social-card-handle">@{{ site_owner.telegram|cut:"https://t.me/"|cut:"http://t.me/" }}</span>
+          </div>
+        </a>
+      </li>
+      {% endif %}
+
+      {% if site_owner.instagram %}
+      <li class="service-item">
+        <a href="{{ site_owner.instagram }}" target="_blank" rel="noopener" class="social-card-link">
+          <div class="social-icon-wrap">
+            <ion-icon name="logo-instagram"></ion-icon>
+          </div>
+          <div class="social-card-info">
+            <p class="social-card-label">INSTAGRAM</p>
+            <span class="social-card-handle">@{{ site_owner.instagram|cut:"https://instagram.com/"|cut:"https://www.instagram.com/"|cut:"http://instagram.com/" }}</span>
+          </div>
+        </a>
+      </li>
+      {% endif %}
+
+      {% if site_owner.youtube %}
+      <li class="service-item">
+        <a href="{{ site_owner.youtube }}" target="_blank" rel="noopener" class="social-card-link">
+          <div class="social-icon-wrap">
+            <ion-icon name="logo-youtube"></ion-icon>
+          </div>
+          <div class="social-card-info">
+            <p class="social-card-label">YOUTUBE</p>
+            <span class="social-card-handle">@{{ site_owner.youtube|cut:"https://youtube.com/"|cut:"https://www.youtube.com/"|cut:"http://youtube.com/" }}</span>
+          </div>
+        </a>
+      </li>
+      {% endif %}
+
+    </ul>
+
+  </section>
+  {% endif %}
+  {% endwith %}
+
+</article>
+{% endblock %}

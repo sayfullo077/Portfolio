@@ -1,0 +1,219 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}{{ site_owner.full_name|default:"Portfolio" }}{% endblock %}</title>
+
+  <link rel="shortcut icon" href="{% static 'images/logo.ico' %}" type="image/x-icon">
+  <link rel="stylesheet" href="{% static 'css/vcard.css' %}">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+  <main>
+
+    <!--  SIDEBAR  -->
+    <aside class="sidebar" data-sidebar>
+
+      <div class="sidebar-info">
+
+        <figure class="avatar-box">
+          {% if site_owner.avatar %}
+            <img src="{{ site_owner.avatar.file.url }}" alt="{{ site_owner.full_name }}" width="80">
+          {% else %}
+            <img src="{% static 'images/my-avatar.png' %}" alt="{{ site_owner.full_name|default:'Avatar' }}" width="80">
+          {% endif %}
+        </figure>
+
+        <div class="info-content">
+          <h1 class="name" title="{{ site_owner.full_name|default:'Your Name' }}">
+            {% if site_owner.full_name %}
+              {% with parts=site_owner.full_name.split %}
+                {% if parts.1 %}
+                  {{ parts.0 }}<br>{{ parts|slice:"1:"|join:" " }}
+                {% else %}
+                  {{ parts.0 }}
+                {% endif %}
+              {% endwith %}
+            {% else %}
+              Your Name
+            {% endif %}
+          </h1>
+          <p class="title">{{ site_owner.title|default:"Web Developer" }}</p>
+        </div>
+
+        <button class="info_more-btn" data-sidebar-btn>
+          <span>Show Contacts</span>
+          <ion-icon name="chevron-down"></ion-icon>
+        </button>
+
+      </div>
+
+      <div class="sidebar-info_more">
+
+        <div class="separator"></div>
+
+        <ul class="contacts-list">
+
+          {% if site_owner.gmail %}
+          <li class="contact-item">
+            <div class="icon-box">
+              <ion-icon name="mail-outline"></ion-icon>
+            </div>
+            <div class="contact-info">
+              <p class="contact-title">Email</p>
+              <a href="mailto:{{ site_owner.gmail }}" class="contact-link">{{ site_owner.gmail }}</a>
+            </div>
+          </li>
+          {% endif %}
+
+          {% if site_owner.phone %}
+          <li class="contact-item">
+            <div class="icon-box">
+              <ion-icon name="phone-portrait-outline"></ion-icon>
+            </div>
+            <div class="contact-info">
+              <p class="contact-title">Telefon raqam</p>
+              <a href="tel:{{ site_owner.phone }}" class="contact-link">{{ site_owner.phone }}</a>
+            </div>
+          </li>
+          {% endif %}
+
+          {% if site_owner.location %}
+          <li class="contact-item">
+            <div class="icon-box">
+              <ion-icon name="location-outline"></ion-icon>
+            </div>
+            <div class="contact-info">
+              <p class="contact-title">Manzil</p>
+              <address>{{ site_owner.location }}</address>
+            </div>
+          </li>
+          {% endif %}
+
+        </ul>
+
+        <div class="separator"></div>
+
+        <ul class="social-list">
+
+          {% if site_owner.github %}
+          <li class="social-item">
+            <a href="{{ site_owner.github }}" target="_blank" rel="noopener" class="social-link">
+              <ion-icon name="logo-github"></ion-icon>
+            </a>
+          </li>
+          {% endif %}
+
+          {% if site_owner.linkedin %}
+          <li class="social-item">
+            <a href="{{ site_owner.linkedin }}" target="_blank" rel="noopener" class="social-link">
+              <ion-icon name="logo-linkedin"></ion-icon>
+            </a>
+          </li>
+          {% endif %}
+
+          {% if site_owner.telegram %}
+          <li class="social-item">
+            <a href="{{ site_owner.telegram }}" target="_blank" rel="noopener" class="social-link">
+              <ion-icon name="paper-plane-outline"></ion-icon>
+            </a>
+          </li>
+          {% endif %}
+
+          {% if site_owner.instagram %}
+          <li class="social-item">
+            <a href="{{ site_owner.instagram }}" target="_blank" rel="noopener" class="social-link">
+              <ion-icon name="logo-instagram"></ion-icon>
+            </a>
+          </li>
+          {% endif %}
+
+          {% if site_owner.youtube %}
+          <li class="social-item">
+            <a href="{{ site_owner.youtube }}" target="_blank" rel="noopener" class="social-link">
+              <ion-icon name="logo-youtube"></ion-icon>
+            </a>
+          </li>
+          {% endif %}
+
+        </ul>
+
+      </div>
+
+    </aside>
+
+    <!--  MAIN CONTENT  -->
+    <div class="main-content">
+
+      <!--  NAVBAR  -->
+      <nav class="navbar">
+        <ul class="navbar-list">
+
+          <li class="navbar-item">
+            <a href="{% url 'home' %}"
+               class="navbar-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}">
+              Men haqimda
+            </a>
+          </li>
+
+          <li class="navbar-item">
+            <a href="{% url 'about' %}"
+               class="navbar-link {% if request.resolver_match.url_name == 'about' %}active{% endif %}">
+              Rezume
+            </a>
+          </li>
+
+          <li class="navbar-item">
+            <a href="{% url 'projects' %}"
+               class="navbar-link {% if request.resolver_match.url_name == 'projects' %}active{% endif %}">
+              Loyihalar
+            </a>
+          </li>
+
+          <li class="navbar-item">
+            <a href="{% url 'blog' %}"
+               class="navbar-link {% if request.resolver_match.url_name == 'blog' or request.resolver_match.url_name == 'post_detail' %}active{% endif %}">
+              Blog
+            </a>
+          </li>
+
+          <li class="navbar-item">
+            <a href="{% url 'contact' %}"
+               class="navbar-link {% if request.resolver_match.url_name == 'contact' %}active{% endif %}">
+              Xabar
+            </a>
+          </li>
+
+        </ul>
+      </nav>
+
+      {% if messages %}
+      {% for message in messages %}
+      <div style="background:hsla(45,100%,72%,.1);border:1px solid var(--orange-yellow-crayola);border-radius:14px;padding:12px 18px;margin-bottom:16px;color:var(--orange-yellow-crayola);font-size:13px;display:flex;align-items:center;gap:10px">
+        <ion-icon name="checkmark-circle-outline"></ion-icon>
+        {{ message }}
+      </div>
+      {% endfor %}
+      {% endif %}
+
+      {% block content %}{% endblock %}
+
+    </div>
+
+  </main>
+
+  <script src="{% static 'js/vcard.js' %}"></script>
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+</body>
+</html>

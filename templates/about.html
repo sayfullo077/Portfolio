@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Resume — {{ site_owner.full_name|default:"Portfolio" }}{% endblock %}
+
+{% block content %}
+<article class="resume active" data-page="resume">
+
+  <header>
+    <h2 class="h2 article-title">Resume</h2>
+  </header>
+
+  <!--  EDUCATION TIMELINE  -->
+  {% if education %}
+  <section class="timeline">
+
+    <div class="title-wrapper">
+      <div class="icon-box">
+        <ion-icon name="book-outline"></ion-icon>
+      </div>
+      <h3 class="h3">Education</h3>
+    </div>
+
+    <ol class="timeline-list">
+      {% for edu in education %}
+      <li class="timeline-item">
+        <h4 class="h4 timeline-item-title">{{ edu.position }}</h4>
+        <span>
+          {{ edu.start_date|date:"Y" }} —
+          {% if edu.is_current %}Present{% else %}{{ edu.end_date|date:"Y" }}{% endif %}
+        </span>
+        <p class="timeline-text">{{ edu.description }}</p>
+      </li>
+      {% endfor %}
+    </ol>
+
+  </section>
+  {% endif %}
+
+  <!--  EXPERIENCE TIMELINE  -->
+  {% if work_experiences %}
+  <section class="timeline">
+
+    <div class="title-wrapper">
+      <div class="icon-box">
+        <ion-icon name="book-outline"></ion-icon>
+      </div>
+      <h3 class="h3">Experience</h3>
+    </div>
+
+    <ol class="timeline-list">
+      {% for exp in work_experiences %}
+      <li class="timeline-item">
+        <h4 class="h4 timeline-item-title">{{ exp.position }} — {{ exp.company }}</h4>
+        <span>
+          {{ exp.start_date|date:"Y" }} —
+          {% if exp.is_current %}Present{% else %}{{ exp.end_date|date:"Y" }}{% endif %}
+        </span>
+        <p class="timeline-text">{{ exp.description }}</p>
+      </li>
+      {% endfor %}
+    </ol>
+
+  </section>
+  {% endif %}
+
+  <!--  SKILLS  -->
+  {% if skills %}
+  <section class="skill">
+
+    <h3 class="h3 skills-title">My skills</h3>
+
+    <ul class="skills-list content-card">
+      {% for skill in skills %}
+      <li class="skills-item">
+        <div class="title-wrapper">
+          <h5 class="h5">{{ skill.name }}</h5>
+          <data value="{{ skill.level }}">{{ skill.level }}%</data>
+        </div>
+        <div class="skill-progress-bg">
+          <div class="skill-progress-fill" style="width: {{ skill.level }}%;"></div>
+        </div>
+      </li>
+      {% endfor %}
+    </ul>
+
+  </section>
+  {% endif %}
+
+</article>
+{% endblock %}

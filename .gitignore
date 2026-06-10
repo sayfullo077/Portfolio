@@ -1,0 +1,65 @@
+# ===========================
+#  Python
+# ===========================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+
+# ===========================
+#  Virtual environment
+# ===========================
+venv/
+.venv/
+env/
+ENV/
+
+# ===========================
+#  Django
+# ===========================
+*.log
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+
+# Media fayllar (serverda alohida saqlanadi)
+media/
+media_files/
+
+# Collectstatic output
+staticfiles/
+
+# ===========================
+#  Muhit o'zgaruvchilari — MAXFIY!
+# ===========================
+.env
+.env.*
+!.env.example
+
+# ===========================
+#  IDE / Editor
+# ===========================
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# ===========================
+#  Testing
+# ===========================
+.coverage
+.pytest_cache/
+htmlcov/
+
+# ===========================
+#  Keraksiz fayllar
+# ===========================
+vcard-personal-portfolio-master/
+portfolio-template.html

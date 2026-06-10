@@ -1,0 +1,20 @@
+[Unit]
+Description=Portfolio Django App
+After=network.target
+
+[Service]
+User=portfolio
+Group=www-data
+WorkingDirectory=/home/portfolio/Portfolio
+EnvironmentFile=/home/portfolio/Portfolio/.env
+ExecStart=/home/portfolio/Portfolio/venv/bin/gunicorn \
+    --workers 3 \
+    --bind 127.0.0.1:8000 \
+    --access-logfile /var/log/portfolio/access.log \
+    --error-logfile /var/log/portfolio/error.log \
+    core.wsgi:application
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

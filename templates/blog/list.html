@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Blog — {{ site_owner.full_name|default:"Portfolio" }}{% endblock %}
+
+{% block content %}
+<article class="blog active" data-page="blog">
+
+  <header>
+    <h2 class="h2 article-title">Blog</h2>
+  </header>
+
+  <section class="blog-posts">
+
+    <ul class="blog-posts-list">
+
+      {% for post in posts %}
+      <li class="blog-post-item">
+        <a href="{% url 'post_detail' post.slug %}">
+
+          <figure class="blog-banner-box">
+            {% if post.image %}
+              <img src="{{ post.image.file.url }}" alt="{{ post.title }}" loading="lazy">
+            {% else %}
+              <img src="{% static 'images/blog-1.jpg' %}" alt="{{ post.title }}" loading="lazy">
+            {% endif %}
+          </figure>
+
+          <div class="blog-content">
+
+            <div class="blog-meta">
+              {% with post.categories.first as cat %}
+              <p class="blog-category">{{ cat.name|default:"General" }}</p>
+              {% endwith %}
+              <span class="dot"></span>
+              <time datetime="{{ post.created_at|date:'Y-m-d' }}">{{ post.created_at|date:"M j, Y" }}</time>
+            </div>
+
+            <h3 class="h3 blog-item-title">{{ post.title }}</h3>
+
+            <p class="blog-text">
+              {{ post.content|striptags|truncatewords:18 }}
+            </p>
+
+          </div>
+
+        </a>
+      </li>
+      {% empty %}
+      <li style="color: var(--light-gray); padding: 20px; text-align: center; grid-column: 1/-1;">
+        No blog posts yet.
+      </li>
+      {% endfor %}
+
+    </ul>
+
+  </section>
+
+</article>
+{% endblock %}
