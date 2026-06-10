@@ -9,8 +9,8 @@ class CustomUserAdmin(UserAdmin):
     list_display = ("id", "full_name", "title", "phone", "linkedin", "github")
     fieldsets = (
         (None, {"fields": ("username", "email", "password")}),
-        ("Personal info", {"fields": ("full_name", "title", "bio", "phone", "avatar", "cv")}),
-        ("Social links", {"fields": ("linkedin", "github", "gmail", "telegram")}),
+        ("Personal info", {"fields": ("full_name", "title", "bio", "phone", "location", "avatar", "cv")}),
+        ("Social links", {"fields": ("linkedin", "github", "gmail", "telegram", "instagram", "youtube")}),
         ("Permissions", {"fields": ("is_active", "is_staff", "is_superuser", "groups", "user_permissions")}),
     )
     add_fieldsets = (
